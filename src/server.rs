@@ -2,8 +2,11 @@ mod hello_world {
     tonic::include_proto!("hello_world");
 }
 
+use std::net::{Ipv4Addr, SocketAddrV4};
+
 use hello_world::hello_world_server::{HelloWorld, HelloWorldServer};
 use hello_world::{GreetUserRequest, GreetUserResponse};
+use log::{debug, info};
 use tonic::transport::Server;
 use tonic::{Request, Response, Status};
 
@@ -16,14 +19,19 @@ impl HelloWorld for HelloWorldService {
         &self,
         request: Request<GreetUserRequest>,
     ) -> Result<Response<GreetUserResponse>, Status> {
-        println!("Got request: '{request:?}'");
+        debug!("got request: '{request:?}'");
 
         let message = request.into_inner();
+        debug!("message in request: '{message:?}'");
         let name = message.name;
+        info!("client name is '{name}'");
 
-        let reply = GreetUserResponse {
-            server_reply: format!("Hello {name}"),
-        };
+        println!("Oh, '{name}' ey?");
+
+        let server_reply = format!("Hello {name}");
+        info!("will reply with '{server_reply}'");
+
+        let reply = GreetUserResponse { server_reply };
 
         Ok(Response::new(reply))
     }
@@ -31,12 +39,15 @@ impl HelloWorld for HelloWorldService {
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let addr = "127.0.0.1".parse()?;
+    env_logger::init();
+
     let hello_world_service = HelloWorldServer::new(HelloWorldService {});
 
+    let addr = SocketAddrV4::new(Ipv4Addr::from_octets([127, 0, 0, 1]), 1234);
+    info!("serving grpc on '{addr}'");
     Server::builder()
         .add_service(hello_world_service)
-        .serve(addr)
+        .serve(addr.into())
         .await?;
 
     Ok(())
