@@ -33,18 +33,48 @@ tonic-prost = "0.14.5"
 tonic-prost-build = "0.14.5"
 
 [lints.clippy]
+# priority is set to `-1` to prevent collision with specific lints below
 all = { level = "deny", priority = -1 }
-pedantic = { level = "deny", priority = -1 }
-nursery = { level = "deny", priority = -1 }
 cargo = { level = "deny", priority = -1 }
-unwrap_used = "deny"
-expect_used = "deny"
-panic = "deny"
-unimplemented = "deny"
-todo = "deny"
-dbg_macro = "deny"
-print_stdout = "deny"
-print_stderr = "deny"
+complexity = { level = "deny", priority = -1 }
+correctness = { level = "deny", priority = -1 }
+nursery = { level = "deny", priority = -1 }
+pedantic = { level = "deny", priority = -1 }
+perf = { level = "deny", priority = -1 }
+# restriction = { level = "deny", priority = -1 }
+style = { level = "deny", priority = -1 }
+suspicious = { level = "deny", priority = -1 }
+
+# specific lints from "restriction" group
 allow_attributes = "deny"
 allow_attributes_without_reason = "deny"
+dbg_macro = "deny"
+expect_used = "deny"
+float_cmp_const = "deny"
+indexing_slicing = "deny"
+lossy_float_literal = "deny"
+map_err_ignore = "deny"
+panic = "deny"
+panic_in_result_fn = "deny"
+print_stderr = "deny"
+print_stdout = "deny"
+redundant_clone = "deny"
+string_slice = "deny"
+todo = "deny"
+unimplemented = "deny"
+unwrap_used = "deny"
+
+# usually caused by the resolver and not practical to solve
 multiple_crate_versions = "allow"
+
+[lints.rust]
+deprecated = "deny"
+unreachable_pub = "deny"
+unsafe_code = "deny"
+unused_lifetimes = "deny"
+unused_qualifications = "deny"
+
+[lints.rustdoc]
+bare_urls = "deny"
+broken_intra_doc_links = "deny"
+private_intra_doc_links = "deny"
