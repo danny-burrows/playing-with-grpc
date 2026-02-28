@@ -19,10 +19,10 @@ impl HelloWorld for HelloWorldService {
         &self,
         request: Request<GreetUserRequest>,
     ) -> Result<Response<GreetUserResponse>, Status> {
-        debug!("got request: '{request:?}'");
+        debug!("got request:\n{request:#?}");
 
         let message = request.into_inner();
-        debug!("message in request: '{message:?}'");
+        debug!("message in request:\n{message:#?}");
         let name = message.name;
         info!("client name is '{name}'");
 
