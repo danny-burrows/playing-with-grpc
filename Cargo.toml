@@ -9,6 +9,10 @@ readme = "README.md"
 keywords = ["grpc", "tonic", "tokio"]
 categories = ["network-programming", "asynchronous"]
 
+[lib]
+name = "playing_with_gprc"
+path = "src/lib.rs"
+
 [[bin]]
 name = "server"
 path = "src/server.rs"
@@ -43,3 +47,4 @@ print_stdout = "deny"
 print_stderr = "deny"
 allow_attributes = "deny"
 allow_attributes_without_reason = "deny"
+multiple_crate_versions = "allow"
