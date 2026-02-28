@@ -2,6 +2,12 @@
 name = "playing-with-gprc"
 version = "0.0.1"
 edition = "2024"
+description = "A small tonic gRPC client/server playground."
+license = "MIT"
+repository = "https://github.com/danny-burrows/playing-with-grpc"
+readme = "README.md"
+keywords = ["grpc", "tonic", "tokio"]
+categories = ["network-programming", "asynchronous"]
 
 [[bin]]
 name = "server"
@@ -21,3 +27,19 @@ tonic-prost = "0.14.5"
 
 [build-dependencies]
 tonic-prost-build = "0.14.5"
+
+[lints.clippy]
+all = { level = "deny", priority = -1 }
+pedantic = { level = "deny", priority = -1 }
+nursery = { level = "deny", priority = -1 }
+cargo = { level = "deny", priority = -1 }
+unwrap_used = "deny"
+expect_used = "deny"
+panic = "deny"
+unimplemented = "deny"
+todo = "deny"
+dbg_macro = "deny"
+print_stdout = "deny"
+print_stderr = "deny"
+allow_attributes = "deny"
+allow_attributes_without_reason = "deny"
