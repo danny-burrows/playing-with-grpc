@@ -66,6 +66,12 @@ unwrap_used = "deny"
 
 # usually caused by the resolver and not practical to solve
 multiple_crate_versions = "allow"
+# this is a bad lint; what it really means is that `pub`
+# and `pub(crate)` result the same visibility in the current
+# context. It directly conflicts with `unreachable_pub`
+# which is actually a useful lint that tracks with sensible
+# management of public API surface.
+redundant_pub_crate = "allow"
 
 [lints.rust]
 deprecated = "deny"
